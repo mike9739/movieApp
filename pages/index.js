@@ -8,6 +8,7 @@ import Footer from "../components/footer";
 import {getMovies} from "../actions";
 
 export default function Home(props) {
+    const {images} = props;
   return (
       <div>
         <NavBar/>
@@ -18,7 +19,7 @@ export default function Home(props) {
               <SideMenu />
             </div>
             <div className="col-lg-9">
-              <Carousel/>
+              <Carousel images={images}/>
               <div className="row">
               <MovieList movies={props.movies || []}/>
               </div>
@@ -30,8 +31,16 @@ export default function Home(props) {
   )
 }
 Home.getInitialProps = async () =>{
-    const movies = await getMovies()
-    return {movies}
+    const movies = await getMovies();
+    const images = movies.map(movie => {
+       return {
+           id : `image-${movie.id}`,
+           url : movie.cover,
+           title: movie.name,
+       }
+    });
+
+    return {movies,images}
 }
 
 //  class Home extends React.Component {
