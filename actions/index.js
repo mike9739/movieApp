@@ -47,6 +47,14 @@ const MOVIE_DATA = [
     }
 ]
 
+const CATEGORY_DATA = [
+    {id: 'c-1', name: 'drama'},
+    {id: 'c-2', name: 'action'},
+    {id: 'c-3', name: 'adventure'},
+    {id: 'c-4', name: 'historical'},
+]
+
+
 export const getMovies = () =>{
    return  new Promise((resolve,reject)=>{
         setTimeout(()=>{
@@ -55,6 +63,27 @@ export const getMovies = () =>{
         },200);
     })
 }
+
+export const getCategories = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout( ()=>{
+            resolve(CATEGORY_DATA)
+            reject('Cannot fetch data! ')
+        },200);
+    })
+}
+
+export const getCategoryById = (id) => {
+    return new Promise((resolve, reject) => {
+        const categoryIndex = CATEGORY_DATA.findIndex(category => category.id === id);
+        const category = CATEGORY_DATA[categoryIndex];
+        setTimeout(()=>{
+            resolve(category)
+            reject('Cannot find the category')
+        },200)
+    })
+}
+
 export const getMoviesById = (id) => {
     return new Promise((resolve, reject) => {
         const movieIndex = MOVIE_DATA.findIndex(movie=> movie.id === id );
